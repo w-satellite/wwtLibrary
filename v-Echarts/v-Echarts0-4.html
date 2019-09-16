@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.StatisticalAnalysis{
+			width: 100%;height:400px;
+		}
+	</style>
+</head>
+<body>
+  <div id="StatisticalAnalysis">
+	  <h2>wwwtLibrary</h2>
+    <div id="StatisticalAnalysis1" class="StatisticalAnalysis" ></div>
+    <div id="StatisticalAnalysis2" class="StatisticalAnalysis"  ></div>
+    <div id="StatisticalAnalysis3" class="StatisticalAnalysis"  ></div>
+  </div>
+<script src="js/vue.min.js"></script>
+<script src="js/echarts.min.js"></script>
+<script>
+
+	var StatisticalAnalysis =new Vue({
+	  el:'#StatisticalAnalysis',
+	  data: function() {
+	    return {
+ 				dataX_1 : [
+	      	"营销系统", "ERP系统","PMS系统", "大数据平台","阳光采购平台", 
+	      	"基建管控系统","同期线损系统", "MDS系统","基层管理信息系统", "PMS2.0系统",
+	      	"电能量采集系统", "0P互联","营销系统", "ERP系统","PMS系统", "大数据平台",
+	      	"同期线损系统", "MDS系统","基层管理信息系统", "PMS2.0系统"
+      	],
+      	dataY_1 : [
+      		320, 52, 1501, 534, 1290, 330, 1320,1500,
+      		1290, 330, 1320,1500,2000, 1501, 534, 1290,
+      		330,534, 1290, 330
+      	],
+      	dataX_2 : [
+	      	"0P互联", "0P互联","0P互联", "0P互联","0P互联", "0P互联",
+	      	"0P互联", "0P互联","0P互联", "0P互联","0P互联", "0P互联",
+	      	"0P互联", "0P互联","0P互联", "0P互联","0P互联", "0P互联",
+	      	"0P互联", "0P互联"
+      	],
+      	dataY_2 : [
+      		320, 52, 1444, 534, 1290, 330, 1320,1511,
+      		1290, 330, 1320,1500,2020, 1501, 534, 1290,
+      		330,534, 1290, 330
+      	],
+      	dataX_3 : [
+	      	"同期线损系统", "MDS系统","基层管理信息系统", "PMS2.0系统",
+	      	"0P互联", "0P互联","0P互联", "0P互联","0P互联",
+	      	"0P互联","0P互联", "0P互联",
+	      	"0P互联", "0P互联","0P互联", "0P互联",
+	      	"0P互联", "0P互联","0P互联", "0P互联"
+      	],
+      	dataY_3 : [
+      		320, 52, 1501, 534, 1290, 330, 1320,1500,
+      		1290, 330, 1320,1500,2000, 1501, 534, 1290,
+      		330,534, 1290, 330
+      	]
+	    }
+	  },
+	  methods: {
+	    drawChart() {
+	      // 基于准备好的dom，初始化echarts实例
+	      var myChart1 = echarts.init(document.getElementById("StatisticalAnalysis1"));
+	      var myChart2 = echarts.init(document.getElementById("StatisticalAnalysis2"));
+	      var myChart3 = echarts.init(document.getElementById("StatisticalAnalysis3"));
+
+	      var dataX_1 = this.dataX_1;
+	      var dataY_1 = this.dataY_1;
+	      var dataX_2 = this.dataX_2;
+	      var dataY_2 = this.dataY_2;
+	      var dataX_3 = this.dataX_3;
+	      var dataY_3 = this.dataY_3;
+	      //取最大值搞灰色背景
+	      var yMax = 2000;
+	      var dataShadow = [];
+				for (var i = 0; i < dataY_1.length; i++) {
+			    dataShadow.push(yMax);
+				}
+
+				// 第一个图表  *******************************************  开始
+	      // 指定图表的配置项和数据
+	      var option1 = {
+	        tooltip: {},
+	        grid : {
+	        	top : 50 ,
+		      	bottom: 100   //距离容器下边界30像素
+		    	},
+	        xAxis: {
+	        	name: '系统名称',
+	        	nameTextStyle: {
+	        		color: '#363C45' ,
+	        		bottom: '-80px' 
+            },
+		        type: 'category',
+		        data: dataX_1,
+				    axisTick: {
+				    	alignWithLabel: true,
+				      length :0, 
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //X轴颜色
+				      	width: 2
+				      }
+				    },
+				    axisLine: {
+				      show: true,
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //X轴颜色
+				        width: 2         // 粗细
+				      }
+				    },
+				    axisLabel: {
+				    	interval:0,  //类目全显
+				    	rotate:30,
+				    	margin:10,
+				    	
+				      textStyle: {
+				        color: '#363C45' , //X轴文字颜色
+				        fontSize: '14px' ,
+				        fontWeight:100
+				      }
+				    },
+				    z: 10
+		    	},
+		    	yAxis: {
+		    		name: '访问数量/（人）',
+		    		nameTextStyle: {
+	        		color: '#363C45'
+            },
+            splitLine: {
+	            show: true,
+	            lineStyle:{
+                color: ['#f0f0f0'],
+                width: 1,
+                type: 'solid'
+	            }
+	        	},
+		    		axisLine: {
+		    			onZero: true,
+				      show: true,
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //Y轴颜色\
+				        width: 2  
+				      }
+				    },
+				    axisTick: {             // 坐标轴小标记
+				      show: true,       		// 属性show控制显示与否，默认不显示
+				      interval: 'auto',
+				      length :0,         		// 属性length控制线长
+				      lineStyle: {       		// 属性lineStyle控制线条样式
+			          color: '#e0e0e0',
+			          width: 2
+				      }
+				    },
+				    axisLabel: {
+				      textStyle: {
+				        color: '#363C45' , //Y轴文字颜色
+				        fontSize: '14px'
+				      }
+				    }
+		    	},
+		    	series: [
+		    		{
+				      type: 'bar',
+				      itemStyle: {
+			          normal: {color: '#F3F8Fb'}
+				      },
+				      barGap:'-100%',   //间距设置
+				      barCategoryGap:'60%',
+				      data: dataShadow,
+				      z:-1
+				    },
+				    {
+				      data: dataY_1,
+			        type: 'bar',
+				      clickable:false,
+				      itemStyle: {
+				        color: '#ffba03',
+				        barBorderRadius: 0
+				      }
+				    }
+		    	]
+	      };
+
+	      // 第二个图表  *******************************************  开始
+	      var option2 = {
+	        tooltip: {},
+	        xAxis: {
+	        	name: '软件/（个）',
+	        	nameTextStyle: {
+	        		color: '#363C45' ,
+	        		bottom: '-80px' 
+            },
+		        type: 'category',
+		        data: dataX_2,
+				    axisTick: {
+				    	alignWithLabel: true,
+				      length :0, 
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //X轴颜色
+				      	width: 2
+				      }
+				    },
+				    axisLine: {
+				      show: true,
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //X轴颜色
+				        width: 2         // 粗细
+				      }
+				    },
+				    axisLabel: {
+				    	rotate:45,
+				    	margin:10,
+				    	
+				      textStyle: {
+				        color: '#363C45' , //X轴文字颜色
+				        fontSize: '14px' ,
+				        fontWeight:100
+				      }
+				    },
+				    z: 10
+		    	},
+		    	yAxis: {
+		    		name: '访问数量/（人）',
+		    		nameTextStyle: {
+	        		color: '#363C45'
+            },
+            splitLine: {
+	            show: true,
+	            lineStyle:{
+                color: ['#f0f0f0'],
+                width: 1,
+                type: 'solid'
+	            }
+	        	},
+		    		axisLine: {
+		    			onZero: true,
+				      show: true,
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //Y轴颜色\
+				        width: 2  
+				      }
+				    },
+				    axisTick: {             // 坐标轴小标记
+				      show: true,       		// 属性show控制显示与否，默认不显示
+				      interval: 'auto',
+				      length :0,         		// 属性length控制线长
+				      lineStyle: {       		// 属性lineStyle控制线条样式
+			          color: '#e0e0e0',
+			          width: 2
+				      }
+				    },
+				    axisLabel: {
+				      textStyle: {
+				        color: '#363C45' , //Y轴文字颜色
+				        fontSize: '14px'
+				      }
+				    }
+		    	},
+		    	series: [
+		    		{
+				      type: 'bar',
+				      itemStyle: {
+			          normal: {color: '#F3F8Fb'}
+				      },
+				      barGap:'-100%',   //间距设置
+				      barCategoryGap:'60%',
+				      data: dataShadow,
+				      z:-1
+				    },
+				    {
+				      data: dataY_2,
+			        type: 'bar',
+				      clickable:false,
+				      itemStyle: {
+				        color: '#2dace6',
+				        barBorderRadius: 0
+				      }
+				    }
+		    	]
+	      };
+
+	      // 第三个图表  *******************************************  开始
+	      var option3 = {
+	        tooltip: {},
+	        xAxis: {
+	        	name: '软件/（个）',
+	        	nameTextStyle: {
+	        		color: '#363C45' ,
+	        		bottom: '-80px' 
+            },
+		        type: 'category',
+		        data: dataX_3,
+				    axisTick: {
+				    	alignWithLabel: true,
+				      length :0, 
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //X轴颜色
+				      	width: 2
+				      }
+				    },
+				    axisLine: {
+				      show: true,
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //X轴颜色
+				        width: 2         // 粗细
+				      }
+				    },
+				    axisLabel: {
+				    	rotate:45,
+				    	margin:10,
+				    	
+				      textStyle: {
+				        color: '#363C45' , //X轴文字颜色
+				        fontSize: '14px' ,
+				        fontWeight:100
+				      }
+				    },
+				    z: 10
+		    	},
+		    	yAxis: {
+		    		name: '访问数量/（人）',
+		    		nameTextStyle: {
+	        		color: '#363C45'
+            },
+            splitLine: {
+	            show: true,
+	            lineStyle:{
+                color: ['#f0f0f0'],
+                width: 1,
+                type: 'solid'
+	            }
+	        	},
+		    		axisLine: {
+		    			onZero: true,
+				      show: true,
+				      lineStyle:{
+				        color:'#e0e0e0' ,  //Y轴颜色\
+				        width: 2  
+				      }
+				    },
+				    axisTick: {             // 坐标轴小标记
+				      show: true,       		// 属性show控制显示与否，默认不显示
+				      interval: 'auto',
+				      length :0,         		// 属性length控制线长
+				      lineStyle: {       		// 属性lineStyle控制线条样式
+			          color: '#e0e0e0',
+			          width: 2
+				      }
+				    },
+				    axisLabel: {
+				      textStyle: {
+				        color: '#363C45' , 	 //Y轴文字颜色
+				        fontSize: '14px'
+				      }
+				    }
+		    	},
+		    	series: [
+		    		{
+				      type: 'bar',
+				      itemStyle: {
+			          normal: {color: '#F3F8Fb'}
+				      },
+				      barGap:'-100%',   //间距设置
+				      barCategoryGap:'60%',
+				      data: dataShadow,
+				      z:-1
+				    },
+				    {
+				      data: dataY_3,
+			        type: 'bar',
+				      clickable:false,
+				      itemStyle: {
+				        color: '#8191e8',
+				        barBorderRadius: 0
+				      }
+				    }
+		    	]
+	      };
+
+	      // 使用刚指定的配置项和数据显示图表。
+	      myChart1.setOption(option1);
+	      myChart2.setOption(option2);
+	      myChart3.setOption(option3);
+	    }
+	  },
+	  mounted() {
+	    this.drawChart();
+	  }
+	});
+</script>
+</body>
+</html>
