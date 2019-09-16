@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+  <div id="softwareApp">
+    <div id="StatisticalAnalysis" style="width: 1280px;height:400px;"></div>
+  </div>
+
+<script src="js/vue.min.js"></script>
+<script src="js/echarts.min.js"></script>
+<script>
+
+	var softwareApp =new Vue({
+	  el:'#softwareApp',
+	  data: function() {
+	    return {
+
+	    }
+	  },
+	  methods: {
+	    drawChart() {
+	      // 基于准备好的dom，初始化echarts实例
+	      var myChart = echarts.init(document.getElementById("StatisticalAnalysis"));
+	      var dataAxis = [
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联",
+	      	"0P互联", "0P互联"
+      	];
+
+	      // 指定图表的配置项和数据
+	      var option = {
+	        tooltip: {},
+	        xAxis: {
+	        	name: '软件/（个）',
+	        	nameTextStyle: {
+	        		color: '#363C45'
+            },
+		        type: 'category',
+		        data: dataAxis,
+				    axisTick: {
+				    	alignWithLabel: true,
+				      length :-5, 
+				      lineStyle:{
+				        color:'#E64D8D' ,  //X轴颜色
+				      	width: 2
+				      }
+				    },
+				    axisLine: {
+				      show: true,
+				      lineStyle:{
+				        color:'#34BF9F' ,  //X轴颜色
+				        width: 2         // 粗细
+				      }
+				    },
+				    axisLabel: {
+				    	inside:false,
+				    	rotate:45,
+				    	margin:10,
+				    	
+				      textStyle: {
+				        color: '#363C45' , //X轴文字颜色
+				        fontSize: '14px' ,
+				        fontWeight:100
+				      }
+				    },
+				    z: 10
+		    	},
+		    	yAxis: {
+		    		name: '访问数量/（人）',
+		    		nameTextStyle: {
+	        		color: '#363C45'
+            },
+            splitLine:{
+            	show:false					//去掉辅助线
+            },
+		    		axisLine: {
+		    			onZero: true,
+				      show: true,
+				      lineStyle:{
+				        color:'#34BF9F' ,  //Y轴颜色\
+				        width: 2  
+				      }
+				    },
+				    axisTick: {            // 坐标轴小标记
+				      show: true,       // 属性show控制显示与否，默认不显示
+				      interval: 'auto',
+				      inside : false,        // 控制小标记是否在grid里
+				      length :-5,         // 属性length控制线长
+				      lineStyle: {       // 属性lineStyle控制线条样式
+			          color: '#E64D8D',
+			          width: 2
+				      }
+				    },
+				    axisLabel: {
+				      textStyle: {
+				        color: '#363C45' , //Y轴文字颜色
+				        fontSize: '14px'
+				      }
+				    }
+		    	},
+		    	series: [
+		    		{	
+			        data: [320, 52, 1501, 534, 1290, 330, 1320,1500, 1290, 330, 1320,1500,2000, 1501, 534, 1290, 330,320, 52,534, 1290, 330],
+			        type: 'line',
+				      clickable:false,
+				      symbol: 'circle',//折线点设置为实心点
+      				symbolSize: 9,   //折线点的大小
+      				itemStyle: {
+			          normal: {
+			          	color: "#E64D8D",   //折线点的颜色
+			          	lineStyle: {
+			          		color: "#34BF9F" , //折线的颜色
+			          		width: 20
+			          	}
+			        	}
+				      }
+		    		}
+		    	]
+	      };
+	      // 使用刚指定的配置项和数据显示图表。
+	      myChart.setOption(option);
+	    }
+	  },
+	  mounted() {
+	    this.drawChart();
+	  }
+	});
+</script>
+</body>
+</html>
